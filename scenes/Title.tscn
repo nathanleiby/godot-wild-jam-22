@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Panel.gd" type="Script" id=1]
-[ext_resource path="res://Timer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Panel.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Timer.gd" type="Script" id=2]
 
 [node name="Panel" type="Panel"]
 margin_left = -0.857422
