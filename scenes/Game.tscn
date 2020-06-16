@@ -1,17 +1,54 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Space/PNG/Space_Stars2.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Rock.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/images/Planets3D/Desert.png" type="Texture" id=5]
-[ext_resource path="res://debug_draw.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Sun.gd" type="Script" id=5]
+[ext_resource path="res://assets/images/Planets3D/Desert.png" type="Texture" id=6]
+[ext_resource path="res://debug_draw.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex0.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex1.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex2.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex3.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex0.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex1.png" type="Texture" id=13]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex2.png" type="Texture" id=14]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex3.png" type="Texture" id=15]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex0.png" type="Texture" id=16]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex1.png" type="Texture" id=17]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex2.png" type="Texture" id=18]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex3.png" type="Texture" id=19]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 400.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 256, 150 )
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 20.0
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "blue",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "red",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "white",
+"speed": 5.0
+} ]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,34 +63,29 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 70.5355, 56.8441 )
+position = Vector2( 80, 80 )
+rotation = -0.785398
 
 [node name="Rock" parent="." instance=ExtResource( 4 )]
-
-[node name="Rock2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 500, 100 )
-vel = Vector2( -100, 0 )
-
-[node name="Rock3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 100, 300 )
-vel = Vector2( 0, 200 )
+position = Vector2( 312, 300 )
+vel = Vector2( 0, 120 )
 
 [node name="Sun" type="RigidBody2D" parent="."]
-editor/display_folded = true
-position = Vector2( 499.226, 300 )
+position = Vector2( 512, 300 )
 mode = 1
 mass = 50.0
 linear_damp = 0.0
 angular_damp = 0.0
+script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="Sun"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DebugDraw" parent="Sun" instance=ExtResource( 6 )]
+[node name="DebugDraw" parent="Sun" instance=ExtResource( 7 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
 scale = Vector2( 2, 2 )
@@ -63,6 +95,7 @@ __meta__ = {
 }
 
 [node name="Area2D" type="Area2D" parent="Sun"]
+editor/display_folded = true
 space_override = 1
 gravity_point = true
 gravity = 96.0
@@ -75,3 +108,64 @@ shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="LineToCross1" type="Line2D" parent="Sun"]
+default_color = Color( 0.996078, 1, 0.4, 1 )
+texture_mode = 5076
+
+[node name="LineToCross2" type="Line2D" parent="Sun"]
+position = Vector2( 0, 0.857391 )
+default_color = Color( 1, 0.823529, 0.4, 1 )
+texture_mode = 0
+
+[node name="LineToCross3" type="Line2D" parent="Sun"]
+position = Vector2( 0, 0.857391 )
+default_color = Color( 0.811765, 1, 0.4, 1 )
+texture_mode = 4320
+
+[node name="Quadrant" type="Area2D" parent="Sun"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/Quadrant"]
+position = Vector2( 256, 150 )
+shape = SubResource( 3 )
+
+[node name="Quadrant2" type="Area2D" parent="Sun"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/Quadrant2"]
+position = Vector2( 256, -150 )
+shape = SubResource( 3 )
+
+[node name="Quadrant3" type="Area2D" parent="Sun"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/Quadrant3"]
+position = Vector2( -256, -150 )
+shape = SubResource( 3 )
+
+[node name="Quadrant4" type="Area2D" parent="Sun"]
+editor/display_folded = true
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/Quadrant4"]
+position = Vector2( -256, 150 )
+shape = SubResource( 3 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 50, 50 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D"]
+frames = SubResource( 5 )
+animation = "red"
+[connection signal="area_entered" from="Sun/Quadrant" to="." method="_on_Area2D2_area_entered"]
+[connection signal="body_entered" from="Sun/Quadrant" to="." method="_on_Quadrant_body_entered"]
+[connection signal="body_entered" from="Sun/Quadrant2" to="." method="_on_Quadrant2_body_entered"]
+[connection signal="body_entered" from="Sun/Quadrant3" to="." method="_on_Quadrant3_body_entered"]
+[connection signal="body_entered" from="Sun/Quadrant4" to="." method="_on_Quadrant4_body_entered"]
