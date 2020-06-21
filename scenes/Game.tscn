@@ -76,6 +76,14 @@ torque = 15000
 position = Vector2( 312, 300 )
 vel = Vector2( 0, 120 )
 
+[node name="Rock2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 512, 100 )
+vel = Vector2( -120, 0 )
+
+[node name="Rock3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 212, 300 )
+vel = Vector2( 0, 200 )
+
 [node name="Sun" type="RigidBody2D" parent="."]
 position = Vector2( 512, 300 )
 mode = 1
