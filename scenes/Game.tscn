@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Space/PNG/Space_Stars2.png" type="Texture" id=2]
@@ -28,6 +28,9 @@ radius = 400.0
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 256, 150 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 26.0
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 20.0
@@ -75,8 +78,6 @@ vel = Vector2( 0, 120 )
 position = Vector2( 512, 300 )
 mode = 1
 mass = 50.0
-contacts_reported = 5
-contact_monitor = true
 linear_damp = 0.0
 angular_damp = 0.0
 script = ExtResource( 5 )
@@ -89,6 +90,7 @@ __meta__ = {
 }
 
 [node name="DebugDraw" parent="Sun" instance=ExtResource( 7 )]
+position = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
 scale = Vector2( 2, 2 )
@@ -145,6 +147,12 @@ visible = false
 position = Vector2( -256, 150 )
 shape = SubResource( 3 )
 
+[node name="DeathZone" type="Area2D" parent="Sun"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/DeathZone"]
+scale = Vector2( 2, 2 )
+shape = SubResource( 6 )
+
 [node name="Portal" type="Area2D" parent="."]
 position = Vector2( 50, 50 )
 scale = Vector2( 2, 2 )
@@ -156,12 +164,12 @@ shape = SubResource( 4 )
 position = Vector2( 0, -0.315125 )
 frames = SubResource( 5 )
 animation = "red"
-frame = 2
+frame = 1
 playing = true
-[connection signal="body_entered" from="Sun" to="." method="_on_Sun_body_entered"]
 [connection signal="area_entered" from="Sun/Quadrant" to="." method="_on_Area2D2_area_entered"]
 [connection signal="body_entered" from="Sun/Quadrant" to="." method="_on_Quadrant_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant2" to="." method="_on_Quadrant2_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant3" to="." method="_on_Quadrant3_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant4" to="." method="_on_Quadrant4_body_entered"]
+[connection signal="body_entered" from="Sun/DeathZone" to="." method="_on_DeathZone_body_entered"]
 [connection signal="body_entered" from="Portal" to="." method="_on_Portal_body_entered"]

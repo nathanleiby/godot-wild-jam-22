@@ -6,12 +6,14 @@ extends Node2D
 
 var visited_quadrants = [false, false, false, false]
 var canExit = false
-var winLose = preload("res://scenes/WinLose.tscn")
-var winLoseInstance
+var WinLoseScene = preload("res://scenes/WinLose.tscn")
+var winLose
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().paused = false
+	Engine.time_scale = 1
+		
 	pass
 	
 func _input(event):
@@ -58,22 +60,36 @@ func markIfPlayerEnteredQuadrant(body, quadrant_idx):
 #	get_tree().paused = not get_tree().paused
 		
 func restart():
-	if winLoseInstance != null:
-		winLoseInstance.queue_free()
+	if winLose != null:
+		winLose.queue_free()
 	get_tree().reload_current_scene()
 
 func lose():
+	# slo-mo
+	Engine.time_scale = .5
+	
+	# wait...
+	var t = Timer.new()
+	t.set_wait_time(1)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	t.queue_free()
+	
 	get_tree().paused = true
-	winLoseInstance = winLose.instance()
-	winLoseInstance.get_node("Outcome").bbcode_text = "[center]YOU LOSE[/center]"
-	winLoseInstance.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
-	add_child(winLoseInstance)
+	winLose = WinLoseScene.instance()
+	winLose.get_node("Outcome").bbcode_text = "[center]YOU LOSE[/center]"
+	# winLose.get_node("ColorRect").color = 'RED'
+	
+	winLose.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
+	add_child(winLose)
 	
 func win():
 	get_tree().paused = true
-	winLoseInstance = winLose.instance()
-	winLoseInstance.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
-	add_child(winLoseInstance)
+	winLose = WinLoseScene.instance()
+	winLose.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
+	add_child(winLose)
 	
 
 func _on_Portal_body_entered(body):
@@ -84,5 +100,9 @@ func _on_WinLose_button_pressed():
 	print("on_WinLose_button_pressed")
 	restart()
 
-func _on_Sun_body_entered(body):
+func _on_DeathZone_body_entered(body):
+	print("_on_DeathZone_body_entered")
+	if body.name != "Player":
+		return
+
 	lose()
