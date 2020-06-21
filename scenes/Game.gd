@@ -8,6 +8,7 @@ var visited_quadrants = [false, false, false, false]
 var canExit = false
 var WinLoseScene = preload("res://scenes/WinLose.tscn")
 var winLose
+var debugMode = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,11 +19,14 @@ func _ready():
 	
 func _input(event):
 	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_ASCIITILDE || event.scancode == KEY_QUOTELEFT:
+			debugMode = not debugMode
+			print("DEBUG MODE = ", debugMode)
 		if event.scancode == KEY_R:
 			restart()
-		if event.scancode == KEY_W:
+		if debugMode and event.scancode == KEY_W:
 			win()
-		if event.scancode == KEY_L:
+		if debugMode and event.scancode == KEY_L:
 			lose()
 		#if event.scancode == KEY_P:
 		#	print("pause")
