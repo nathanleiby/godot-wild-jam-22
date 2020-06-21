@@ -4,7 +4,9 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-var q = [false, false, false, false]
+var visited_quadrants = [false, false, false, false]
+var canExit = false
+var winLose = preload("res://scenes/WinLose.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,17 +28,23 @@ func markIfPlayerEnteredQuadrant(body, quadrant_idx):
 	if body.name != "Player":
 		return
 		
-	print("Updating visited quadrants...")
-	q[quadrant_idx] = true
-	print(q)
+	visited_quadrants[quadrant_idx] = true
 	
 	# If all visitied, win!	
-	for i in q:
+	for i in visited_quadrants:
 		if i == false:
 			return
-	
-	print("Win!")
-				
-			
-			
+
+	revolutionComplete()
 		
+func revolutionComplete():
+	$Portal/AnimatedSprite.animation = "blue"
+	canExit = true
+	
+func _on_Portal_body_entered(body):
+	if not canExit:
+		return
+		
+	get_tree().paused = true
+	add_child(winLose.instance())
+	print("you win!")

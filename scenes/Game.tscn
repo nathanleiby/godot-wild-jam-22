@@ -94,8 +94,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Area2D" type="Area2D" parent="Sun"]
+[node name="GravityWell" type="Area2D" parent="Sun"]
 editor/display_folded = true
+visible = false
 space_override = 1
 gravity_point = true
 gravity = 96.0
@@ -103,25 +104,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/GravityWell"]
 shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="LineToCross1" type="Line2D" parent="Sun"]
-default_color = Color( 0.996078, 1, 0.4, 1 )
-texture_mode = 5076
-
-[node name="LineToCross2" type="Line2D" parent="Sun"]
-position = Vector2( 0, 0.857391 )
-default_color = Color( 1, 0.823529, 0.4, 1 )
-texture_mode = 0
-
-[node name="LineToCross3" type="Line2D" parent="Sun"]
-position = Vector2( 0, 0.857391 )
-default_color = Color( 0.811765, 1, 0.4, 1 )
-texture_mode = 4320
 
 [node name="Quadrant" type="Area2D" parent="Sun"]
 editor/display_folded = true
@@ -155,17 +142,22 @@ visible = false
 position = Vector2( -256, 150 )
 shape = SubResource( 3 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Portal" type="Area2D" parent="."]
 position = Vector2( 50, 50 )
+scale = Vector2( 2, 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal"]
 shape = SubResource( 4 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Portal"]
+position = Vector2( 0, -0.315125 )
 frames = SubResource( 5 )
 animation = "red"
+frame = 3
+playing = true
 [connection signal="area_entered" from="Sun/Quadrant" to="." method="_on_Area2D2_area_entered"]
 [connection signal="body_entered" from="Sun/Quadrant" to="." method="_on_Quadrant_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant2" to="." method="_on_Quadrant2_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant3" to="." method="_on_Quadrant3_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant4" to="." method="_on_Quadrant4_body_entered"]
+[connection signal="body_entered" from="Portal" to="." method="_on_Portal_body_entered"]

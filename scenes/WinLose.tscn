@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/BEBAS.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/BebasNeue/BebasNeue-Regular.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 2 )
+
+[node name="WinLose" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -200.0
+margin_right = 200.0
+margin_bottom = 200.0
+color = Color( 0, 0.905882, 0.905882, 0.905882 )
+
+[node name="Outcome" type="RichTextLabel" parent="."]
+margin_left = 313.0
+margin_top = 182.0
+margin_right = 711.0
+margin_bottom = 236.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]YOU WIN[/center]"
+text = "YOU WIN"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.0
+margin_top = 100.0
+margin_right = 37.0
+margin_bottom = 159.0
+custom_fonts/font = SubResource( 2 )
+text = "play again"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 339.401
+margin_top = 248.0
+margin_right = 684.401
+margin_bottom = 377.0
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center]You boldy went where no one has gone before! [/center]"
+text = "You boldy went where no one has gone before! "
+__meta__ = {
+"_edit_lock_": true
+}
