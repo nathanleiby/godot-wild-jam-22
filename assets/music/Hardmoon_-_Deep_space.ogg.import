@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Hardmoon_-_Deep_space.ogg-370af5036352fcfd83ef4d429f5dd67f.oggstr"
+
+[deps]
+
+source_file="res://assets/music/Hardmoon_-_Deep_space.ogg"
+dest_files=[ "res://.import/Hardmoon_-_Deep_space.ogg-370af5036352fcfd83ef4d429f5dd67f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
