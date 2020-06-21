@@ -65,6 +65,7 @@ __meta__ = {
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 80, 80 )
 rotation = -0.785398
+torque = 15000
 
 [node name="Rock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 312, 300 )
@@ -74,6 +75,8 @@ vel = Vector2( 0, 120 )
 position = Vector2( 512, 300 )
 mode = 1
 mass = 50.0
+contacts_reported = 5
+contact_monitor = true
 linear_damp = 0.0
 angular_damp = 0.0
 script = ExtResource( 5 )
@@ -153,8 +156,9 @@ shape = SubResource( 4 )
 position = Vector2( 0, -0.315125 )
 frames = SubResource( 5 )
 animation = "red"
-frame = 3
+frame = 2
 playing = true
+[connection signal="body_entered" from="Sun" to="." method="_on_Sun_body_entered"]
 [connection signal="area_entered" from="Sun/Quadrant" to="." method="_on_Area2D2_area_entered"]
 [connection signal="body_entered" from="Sun/Quadrant" to="." method="_on_Quadrant_body_entered"]
 [connection signal="body_entered" from="Sun/Quadrant2" to="." method="_on_Quadrant2_body_entered"]

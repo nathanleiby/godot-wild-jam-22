@@ -25,6 +25,8 @@ radius = 27.3292
 height = 13.2243
 
 [node name="Player" type="RigidBody2D"]
+contacts_reported = 5
+contact_monitor = true
 angular_damp = 5.0
 script = ExtResource( 1 )
 

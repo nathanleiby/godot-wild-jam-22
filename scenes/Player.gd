@@ -4,8 +4,8 @@ extends RigidBody2D
 # var a = 2
 # var b = "text"
 
-var thrust = Vector2(0, 200)
-var torque = 20000
+export var thrust = Vector2(0, 200)
+export var torque = 20000
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
