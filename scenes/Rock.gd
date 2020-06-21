@@ -5,7 +5,8 @@ onready var particles: Particles2D = $Particles2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	linear_velocity = vel
+	var jitter = (randi() % 20) * .01
+	linear_velocity = vel * (.9 + jitter)
 
 func _process(delta):		
 	# particles.process_material.set("fake", -1 * linear_velocity)
