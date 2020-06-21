@@ -1,24 +1,25 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/Game.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/Space/PNG/Space_Stars2.png" type="Texture" id=2]
-[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Rock.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Sun.gd" type="Script" id=5]
-[ext_resource path="res://assets/images/Planets3D/Desert.png" type="Texture" id=6]
-[ext_resource path="res://debug_draw.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/images/PlanetClickerAssets/watertex0.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/PlanetClickerAssets/watertex1.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/PlanetClickerAssets/watertex2.png" type="Texture" id=10]
-[ext_resource path="res://assets/images/PlanetClickerAssets/watertex3.png" type="Texture" id=11]
-[ext_resource path="res://assets/images/PlanetClickerAssets/firetex0.png" type="Texture" id=12]
-[ext_resource path="res://assets/images/PlanetClickerAssets/firetex1.png" type="Texture" id=13]
-[ext_resource path="res://assets/images/PlanetClickerAssets/firetex2.png" type="Texture" id=14]
-[ext_resource path="res://assets/images/PlanetClickerAssets/firetex3.png" type="Texture" id=15]
-[ext_resource path="res://assets/images/PlanetClickerAssets/airtex0.png" type="Texture" id=16]
-[ext_resource path="res://assets/images/PlanetClickerAssets/airtex1.png" type="Texture" id=17]
-[ext_resource path="res://assets/images/PlanetClickerAssets/airtex2.png" type="Texture" id=18]
-[ext_resource path="res://assets/images/PlanetClickerAssets/airtex3.png" type="Texture" id=19]
+[ext_resource path="res://scenes/Background.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Rock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Sun.gd" type="Script" id=6]
+[ext_resource path="res://assets/images/Planets3D/Desert.png" type="Texture" id=7]
+[ext_resource path="res://debug_draw.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex0.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex1.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex2.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/PlanetClickerAssets/watertex3.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex0.png" type="Texture" id=13]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex1.png" type="Texture" id=14]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex2.png" type="Texture" id=15]
+[ext_resource path="res://assets/images/PlanetClickerAssets/firetex3.png" type="Texture" id=16]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex0.png" type="Texture" id=17]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex1.png" type="Texture" id=18]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex2.png" type="Texture" id=19]
+[ext_resource path="res://assets/images/PlanetClickerAssets/airtex3.png" type="Texture" id=20]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 25.0
@@ -29,25 +30,25 @@ radius = 400.0
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 256, 150 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=4]
 radius = 26.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 radius = 20.0
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "blue",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
 "loop": true,
 "name": "red",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "white",
 "speed": 5.0
@@ -61,16 +62,17 @@ margin_right = 1024.0
 margin_bottom = 600.0
 texture = ExtResource( 2 )
 stretch_mode = 2
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
+[node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 80, 80 )
 rotation = -0.785398
 torque = 15000
 
-[node name="Rock" parent="." instance=ExtResource( 4 )]
+[node name="Rock" parent="." instance=ExtResource( 5 )]
 position = Vector2( 312, 300 )
 vel = Vector2( 0, 120 )
 
@@ -80,16 +82,16 @@ mode = 1
 mass = 50.0
 linear_damp = 0.0
 angular_damp = 0.0
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Sun"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DebugDraw" parent="Sun" instance=ExtResource( 7 )]
+[node name="DebugDraw" parent="Sun" instance=ExtResource( 8 )]
 position = Vector2( 0, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun"]
@@ -151,20 +153,20 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sun/DeathZone"]
 scale = Vector2( 2, 2 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="Portal" type="Area2D" parent="."]
 position = Vector2( 50, 50 )
 scale = Vector2( 2, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Portal"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portal"]
 position = Vector2( 0, -0.315125 )
-frames = SubResource( 5 )
+frames = SubResource( 6 )
 animation = "red"
-frame = 1
+frame = 2
 playing = true
 [connection signal="area_entered" from="Sun/Quadrant" to="." method="_on_Area2D2_area_entered"]
 [connection signal="body_entered" from="Sun/Quadrant" to="." method="_on_Quadrant_body_entered"]

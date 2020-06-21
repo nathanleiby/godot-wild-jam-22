@@ -8,5 +8,5 @@ export_presets.cfg
 .mono/
 data_*/
 
-# Build output
-build/
+# Export output
+exports/
