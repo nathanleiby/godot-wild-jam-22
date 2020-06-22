@@ -10,13 +10,14 @@ var LevelScene = load("res://scenes/Level.tscn")
 var WinLoseScene = preload("res://scenes/WinLose.tscn")
 var winLose
 var debugMode = false
+var outOfBoundsTimer: Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().paused = false
 	Engine.time_scale = 1
-		
-	pass
+	$Player.connect("exiting_view", self, "_on_Player_exiting_view")
+	$Player.connect("entering_view", self, "_on_Player_entering_view")
 	
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -28,7 +29,7 @@ func _input(event):
 		if debugMode and event.scancode == KEY_W:
 			win()
 		if debugMode and event.scancode == KEY_L:
-			lose()
+			lose("-- FORCED ERROR --\n\nYou pressed l. That was your own doing!")
 		#if event.scancode == KEY_P:
 		#	print("pause")
 		#	pause() # can't pause directly, b/c breaks processing of input
@@ -60,10 +61,7 @@ func markIfPlayerEnteredQuadrant(body, quadrant_idx):
 	$Portal/AnimatedSprite.animation = "blue"
 	canExit = true
 
-
-# func pause():
-#	get_tree().paused = not get_tree().paused
-		
+	
 func restart():
 	if winLose != null:
 		winLose.queue_free()
@@ -71,7 +69,7 @@ func restart():
 	get_parent().add_child(LevelScene.instance())
 	self.queue_free()
 
-func lose():
+func lose(text):
 	# slo-mo
 	Engine.time_scale = .5
 	
@@ -87,14 +85,17 @@ func lose():
 	get_tree().paused = true
 	winLose = WinLoseScene.instance()
 	winLose.get_node("Outcome").bbcode_text = "[center]YOU LOSE[/center]"
+	winLose.get_node("RichTextLabel").bbcode_text = "[center]" + str(text) + "[/center]"
 	# winLose.get_node("ColorRect").color = 'RED'
-	
 	winLose.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
 	add_child(winLose)
 	
 func win():
 	get_tree().paused = true
 	winLose = WinLoseScene.instance()
+	
+	var text = "-- REVOLUTION --\n\nYou looped the loop. Well done!"
+	winLose.get_node("RichTextLabel").bbcode_text = "[center]" + str(text) + "[/center]"
 	winLose.get_node("Button").connect("pressed", self, "_on_WinLose_button_pressed")
 	add_child(winLose)
 	
@@ -112,4 +113,27 @@ func _on_DeathZone_body_entered(body):
 	if body.name != "Player":
 		return
 
-	lose()
+	lose("-- CRASH LANDING --\n\nFrom blazing meteor to buried meteorite, you are now smooshed into the ground.")
+
+func _on_Player_entering_view():
+	if outOfBoundsTimer == null:
+		return
+	outOfBoundsTimer.stop()
+	outOfBoundsTimer.queue_free()
+
+func _on_Player_exiting_view():
+	if not outOfBoundsTimer == null:
+		return
+	outOfBoundsTimer = Timer.new()
+	outOfBoundsTimer.set_wait_time(1)
+	outOfBoundsTimer.connect("timeout", self, "_on_outOfBoundsTimer_timeout")
+	add_child(outOfBoundsTimer)
+	outOfBoundsTimer.start()
+	
+
+func _on_outOfBoundsTimer_timeout():
+	if (randf() > 0.5):
+		lose("-- LOST IN SPACE --\n\nYou drift off into the sweet, peaceful darkness.")
+	else:
+		# TODO: Show this if velocity as you exit is quite high
+		lose("-- BOLDLY GO --\n\nWhoosh! You're off to where no one has gone before.")
